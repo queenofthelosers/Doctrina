@@ -1,0 +1,66 @@
+.loginBox{
+    height: 400px;
+    width: 500px;
+    margin:auto;
+    padding-top: 200px;
+}
+
+.bgDiv{
+    background-color: black;
+    height: 100vh;
+}
+
+.containerDiv
+{
+    margin:auto;
+    justify-content: space-evenly;
+    display: flex;
+    padding-top: 250px;
+}
+
+.login1
+{
+    background-color : whitesmoke;
+    /* background-image: url("../images/student-icon.jpg"); */
+    background-size: cover; 
+    opacity: 0.6;
+    height: 300px;
+    width: 300px;
+}
+
+.login2
+{
+    background-color : whitesmoke;
+    background-image: url("../images/teacher-icon.png");
+    background-size: cover;
+    opacity: 0.6;
+    height: 300px;
+    width: 300px;
+}
+
+.login1:hover
+{
+    background-color: coral;
+}
+
+.login2:hover
+{
+    background-color: coral;
+}
+
+.bgBox{
+    background-color:whitesmoke; 
+}
+.bgBox1{
+    background-color:whitesmoke;
+    padding-bottom: 10px;
+    padding-top: 0px;
+    border-radius: 2%;
+    /* height: 400px;
+    width: 500px; */
+}
+
+#root {
+    height: 100vh;
+}
+
