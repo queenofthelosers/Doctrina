@@ -13,9 +13,8 @@ class LoginPage extends React.Component{
 
     instructorLogin()
     {
-        window.location.href = "/instructor"
-    }
 
+    }
     render(){
         
         return(
@@ -23,7 +22,7 @@ class LoginPage extends React.Component{
             <div className = "containerDiv">
                 <div className = "login1"><center><b>Student Login</b></center></div>
 
-                <div className= "login2"><center><b>Instructor Login</b></center></div>
+                <div className= "login2"><center><b><a href="http://localhost:8080/auth/google">Instructor Login</a></b></center></div>
             </div>
         </div>
         
