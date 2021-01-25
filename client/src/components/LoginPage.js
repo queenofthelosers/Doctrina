@@ -1,28 +1,31 @@
 
 import React from 'react'
 import "../stylesheets/Login.css"
-import axios from 'axios'
-
+import { Link } from "react-router-dom"
 class LoginPage extends React.Component{
     
     constructor(props)
     {
         super(props);
-        this.instructorLogin = this.instructorLogin.bind(this)
+        this.setToken = this.setToken.bind(this)
     }
 
-    instructorLogin()
+    setToken()
     {
-
+        window.localStorage.setItem('token','student');
+        const x = window.localStorage.getItem('token');
+        console.log(x);
+        window.location="http://localhost:8080/auth/google"
     }
+
     render(){
         
         return(
         <div className="bgDiv">
             <div className = "containerDiv">
-                <div className = "login1"><center><b>Student Login</b></center></div>
+                <div className = "login1" onClick = {this.instructorLogin}><center><b><Link to = "/instructorlogin">Instructor Login</Link></b></center></div>
 
-                <div className= "login2"><center><b><a href="http://localhost:8080/auth/google">Instructor Login</a></b></center></div>
+                <div className= "login2"><center><b><a onClick={this.setToken}>Student Login</a></b></center></div>
             </div>
         </div>
         

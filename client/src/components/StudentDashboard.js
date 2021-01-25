@@ -2,7 +2,7 @@ import React from "react"
 import CourseCard from "./CourseCard"
 import axios from "axios"
 
-class InstructorDashboard extends React.Component{
+class StudentDashboard extends React.Component{
     
     constructor(props)
     {
@@ -11,7 +11,7 @@ class InstructorDashboard extends React.Component{
             name : "",
             emailID : ""
         }
-        
+        this.logOut = this.logOut.bind(this);
     }
 
     componentDidMount()
@@ -20,8 +20,11 @@ class InstructorDashboard extends React.Component{
             console.log(response.data);
             this.setState({name : response.data.Name , emailID: response.data.Email})
         })
+    }
 
-        
+    logOut(){
+        window.localStorage.removeItem('token');
+        window.location.href = "/"
     }
 
     render(){
@@ -32,7 +35,7 @@ class InstructorDashboard extends React.Component{
                 <center><b><h1>MY COURSES</h1></b><button>+</button></center>
                 
             </div>
-
+            <button onClick = {this.logOut}>LOG OUT</button>
             <div className = "courseContainer">
                 <CourseCard/>
                 <CourseCard/>
@@ -46,4 +49,4 @@ class InstructorDashboard extends React.Component{
 
 }
 
-export default InstructorDashboard;
+export default StudentDashboard;

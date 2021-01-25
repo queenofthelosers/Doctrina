@@ -47,7 +47,7 @@ func func1(w http.ResponseWriter, r *http.Request) {
 	current_user.Name = username.(string)
 	fmt.Println(current_user)
 	//send user struct to React
-	http.Redirect(w, r,"http://localhost:3000/instructor", http.StatusSeeOther)
+	http.Redirect(w, r,"http://localhost:3000/student", http.StatusSeeOther)
 }
 
 func func2(w http.ResponseWriter, r *http.Request) {
