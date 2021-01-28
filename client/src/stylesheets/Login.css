@@ -3,39 +3,48 @@
     width: 500px;
     margin:auto;
     padding-top: 200px;
+    color: whitesmoke;
 }
 
 .bgDiv{
-    background-color: black;
+    background-image: url("../images/instructor-bg1.png");
+    background-color:rgba(0, 0, 0, 0.89);
     height: 100vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+    color: whitesmoke;
 }
 
 .containerDiv
 {
     margin:auto;
-    justify-content: space-evenly;
+    justify-content: space-between;
     display: flex;
-    padding-top: 250px;
+    flex-direction: column;
+    padding-top: 120px;
+    padding-right: 150px;
+    float: right;
 }
 
 .login1
 {
-    background-color : whitesmoke;
+    background-color : chocolate;
     /* background-image: url("../images/student-icon.jpg"); */
-    background-size: cover; 
-    opacity: 0.6;
-    height: 300px;
-    width: 300px;
+    background-image: url("../images/teacher-icon.png");
+    background-size: contain; 
+    opacity: 0.9;
+    height: 250px;
+    width: 250px;
 }
 
 .login2
 {
-    background-color : whitesmoke;
-    background-image: url("../images/teacher-icon.png");
+    background-color :chocolate;
+    background-image: url("../images/student-icon.png");
     background-size: cover;
-    opacity: 0.6;
-    height: 300px;
-    width: 300px;
+    opacity: 0.9;
+    height: 250px;
+    width: 250px;
 }
 
 .login1:hover
@@ -50,6 +59,7 @@
 
 .bgBox{
     background-color:whitesmoke; 
+    padding: 50px;
 }
 .bgBox1{
     background-color:whitesmoke;
@@ -62,5 +72,14 @@
 
 #root {
     height: 100vh;
+}
+
+.heading1{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: larger;
+}
+
+a{
+    color: white;
 }
 

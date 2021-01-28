@@ -22,10 +22,12 @@ class LoginPage extends React.Component{
         
         return(
         <div className="bgDiv">
+        
             <div className = "containerDiv">
+            <h1 className="heading1">Please sign in : </h1>
                 <div className = "login1" onClick = {this.instructorLogin}><center><b><Link to = "/instructorlogin">Instructor Login</Link></b></center></div>
-
-                <div className= "login2"><center><b><a onClick={this.setToken}>Student Login</a></b></center></div>
+                <br/><br/>
+                <div className= "login2"><center><b><a onClick={this.setToken}>Student Login</a></b></center><br/></div>
             </div>
         </div>
         

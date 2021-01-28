@@ -10,6 +10,7 @@ import (
 	"time"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 
@@ -19,10 +20,12 @@ import (
 	"github.com/gorilla/sessions"
 )
 type appUser struct{
-	Email string 
-	Name string
+	ID primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
+	Email string  `json:"email" bson:"email"`
+	Name string	  `json:"name" bson:"name"`
 }
 var current_user appUser
+var client *mongo.Client
 
 func handlerFunc(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
@@ -46,7 +49,16 @@ func func1(w http.ResponseWriter, r *http.Request) {
 	current_user.Email = email_id.(string)
 	current_user.Name = username.(string)
 	fmt.Println(current_user)
-	//send user struct to React
+	
+	//Insert user in MongoDB if a record does not already exist
+	json.NewDecoder(r.Body).Decode(&current_user)
+	collection := client.Database("seproj").Collection("student")
+	ctx,_ := context.WithTimeout(context.Background(),10*time.Second)
+	count,err := collection.CountDocuments(context.TODO(),bson.D{{"email",current_user.Email}})
+	if(count==0){
+		result,_ := collection.InsertOne(ctx, current_user)
+		fmt.Println(result);
+	}
 	http.Redirect(w, r,"http://localhost:3000/student", http.StatusSeeOther)
 }
 
@@ -84,9 +96,12 @@ func main() {
 	r.HandleFunc("/auth/{provider}/callback",func1)
 	r.HandleFunc("/auth/{provider}",func2)
 	r.HandleFunc("/api/currentuser",getCurrUser)
-	
+	r.HandleFunc("/api/add_instructor",CreateInstructor);
+	r.HandleFunc("/api/validate_instructor",ValidateInstructor);
+
 	//Mongo Connection Code
-	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb+srv://admin:admin@cluster0.5ozca.mongodb.net/seproj?retryWrites=true&w=majority"))
+	var err error
+	client, err = mongo.NewClient(options.Client().ApplyURI("mongodb+srv://admin:admin@cluster0.5ozca.mongodb.net/seproj?retryWrites=true&w=majority"))
 	if err != nil {
 		log.Fatal(err)
 	}
