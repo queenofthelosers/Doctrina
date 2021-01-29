@@ -3,7 +3,9 @@ import LoginPage from "./components/LoginPage"
 import StudentDashboard from "./components/StudentDashboard"
 import InstructorLogin from "./components/InstructorLogin"
 import StudentRoute from "./components/StudentRoute"
+import InstructorDashboard from "./components/InstructorDashboard"
 import { BrowserRouter as Router, Route} from 'react-router-dom';
+import InstructorRoute from './components/InstructorRoute';
 
 function App() {
   return (
@@ -11,7 +13,7 @@ function App() {
         <Route exact path = "/" component={LoginPage}></Route>
         <StudentRoute exact path = "/student" component={StudentDashboard}></StudentRoute>
         <Route exact path = "/instructorlogin" component={InstructorLogin}></Route>
-
+        <InstructorRoute exact path = "/instructor_dashboard" component = {InstructorDashboard}></InstructorRoute>
     </Router>
   );
 }

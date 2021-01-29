@@ -1,7 +1,7 @@
 import React from "react"
 import CourseCard from "./CourseCard"
 import axios from "axios"
-
+import StudentNavbar from "./StudentNavbar"
 class StudentDashboard extends React.Component{
     
     constructor(props)
@@ -30,6 +30,7 @@ class StudentDashboard extends React.Component{
     render(){
         return(
             <div>
+            <StudentNavbar></StudentNavbar>
             "Authentication Completed, User EMAIL is : {this.state.emailID}"
             <div>
                 <center><b><h1>MY COURSES</h1></b><button>+</button></center>

@@ -34,6 +34,14 @@ class InstructorLogin extends React.Component
             'Content-Type': 'application/json;charset=UTF-8'
         }}).then((res)=>{
               console.log(res.data)
+              if(res.data.response == "Success")
+              {
+                window.location.href = "/instructor_dashboard"
+                window.localStorage.setItem("instructor",username)
+              }
+              else{
+                alert("Wrong details!")
+              }
           }).catch((err)=>{
               console.log(err)
           })

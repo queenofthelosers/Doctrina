@@ -17,7 +17,7 @@ type Instructor struct{
 	ID primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
 	Username string	`json:"username,omitempty" bson:"username,omitempty"`  
 	Password string `json:"password,omitempty" bson:"password,omitempty"`
-	Courses []string `json:"courses,omitempty" bson:"password,omitempty"`
+	//Courses []string `json:"courses,omitempty" bson:"password,omitempty"`
 }
 
 type LoginResult struct{
@@ -51,44 +51,28 @@ func ValidateInstructor(w http.ResponseWriter,r *http.Request){
 		}
 		fmt.Println(i);
 		username := i.Username;
-		fmt.Println("found username :",username);
-		//passwd := i.Password
+		passwd := i.Password
+		//fmt.Println("found username :",username);
 		instructorCollection := client.Database("seproj").Collection("instructors")
-		ctx,_ := context.WithTimeout(context.Background(),10*time.Second)
-		// count,err := instructorCollection.CountDocuments(ctx,bson.D{{"username",username}})
-		// if count==0{
-		// 	lr := LoginResult{Response : "Failed"}
-		// 	json.NewEncoder(w).Encode(&lr)
-		// } else {
-		// 	var inst Instructor
-		// 	cursor, err := instructorCollection.Find(context.TODO(), bson.D{{"username",username}})
-		// 	cursor.Next(ctx)
-		// 	err = cursor.Decode(&inst)
-		// 	if err!=nil{
-		// 		fmt.Println(err)
-		// 	}
-		// 	fmt.Println(inst);
-		// 	lr := LoginResult{Response : inst.Password}
-		// 	json.NewEncoder(w).Encode(&lr)
-
-		// }
-		var instArr []Instructor
-		filter := bson.D{
-			primitive.E{Key:"username",Value: i.Username},
+		var j Instructor;
+		err = instructorCollection.FindOne(context.TODO(),bson.M{"username":username}).Decode(&j);
+		if err!=nil{
+			lr := LoginResult{"Failed"}
+			json.NewEncoder(w).Encode(lr);
+		} else{
+			fmt.Println(j);
+			if(passwd == j.Password){
+				lr := LoginResult{"Success"};
+				json.NewEncoder(w).Encode(lr);
+			} else{
+				lr := LoginResult{"Failed"};
+				json.NewEncoder(w).Encode(lr);
+			}
 		}
-		cursor,err := instructorCollection.Find(ctx,filter);
+		//passwd := i.Password
 		
-		if err != nil {
-			panic(err)
-		}
-		if err = cursor.All(ctx, &instArr); err != nil {
-			panic(err)
-		}
-		fmt.Println(instArr)
-	
-	  // once exhausted, close the cursor
-		cursor.Close(ctx)
-	
+		//ctx,_ := context.WithTimeout(context.Background(),10*time.Second)
 		
+	
 	}	
 }
