@@ -38,7 +38,7 @@ func createNewRepo(w http.ResponseWriter, r *http.Request) {
 			fmt.Println(err)
 		}
 		lectureName := l.LectureName
-		err, out, errout := Shellout("mkdir " + lectureName + " && cd new && git init")
+		err, out, errout := Shellout("cd classes && mkdir " + lectureName + " && cd " + lectureName + "&& git init")
 		if err != nil {
 			log.Printf("error: %v\n", err)
 		}
