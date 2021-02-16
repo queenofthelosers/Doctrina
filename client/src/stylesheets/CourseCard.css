@@ -7,3 +7,7 @@
 .courseCard:hover
 {
 }
+.courseButton
+{
+    float: right;
+}

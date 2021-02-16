@@ -1,12 +1,12 @@
 import React from "react"
 import "../images/bits-logo.png"
-class StudentNavbar extends React.Component{
+class InstructorNavbar extends React.Component{
     constructor(props){
         super(props);
-        this.studentLogout = this.studentLogout.bind(this);
+        this.studentLogout = this.instructorLogout.bind(this);
     }
-    studentLogout(){
-        window.localStorage.removeItem('token');
+    instructorLogout(){
+        window.localStorage.removeItem('instructor');
         window.location.href = "/"
     }
     render()
@@ -35,7 +35,9 @@ class StudentNavbar extends React.Component{
                 <a class="navbar-item">
                     My Courses
                 </a>
-
+                <a class="navbar-item">
+                    Invites
+                </a>
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
                     More
@@ -62,7 +64,7 @@ class StudentNavbar extends React.Component{
                 <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                    <a class="button is-danger" onClick = {this.studentLogout}>
+                    <a class="button is-danger" onClick = {this.instructorLogout}>
                         <strong>Logout</strong>
                     </a>
                     
@@ -75,4 +77,4 @@ class StudentNavbar extends React.Component{
         )
     }
 }
-export default StudentNavbar
+export default InstructorNavbar

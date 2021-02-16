@@ -10,30 +10,52 @@ class CourseCard extends React.Component
     render()
     {
         return(
-            <div class="card courseCard">
-            <header class="card-header">
-                <p class="card-header-title">
-                Course Name Here
-                </p>
-                <a href="#" class="card-header-icon" aria-label="more options">
-                <span class="icon">
-                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+            <div className="courseCard">
+            <article class="panel is-link">
+            <p class="panel-heading">
+                CS F111 Computer Programming
+            </p>
+            {/* <p class="panel-tabs">
+                <a class="is-active">All</a>
+                <a>Public</a>
+                <a>Private</a>
+                <a>Sources</a>
+                <a>Forks</a>
+            </p> */}
+            <div class="panel-block">
+                <p class="control has-icons-left">
+                <input class="input is-link" type="text" placeholder="Search"/>
+                <span class="icon is-left">
+                    <i class="fas fa-search" aria-hidden="true"></i>
                 </span>
-                </a>
-            </header>
-            <div class="card-content">
-                <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-                <br/>
-                <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-                </div>
+                </p>
             </div>
-            <footer class="card-footer">
-                <a href="#" class="card-footer-item">Save</a>
-                <a href="#" class="card-footer-item">Edit</a>
-                <a href="#" class="card-footer-item">Delete</a>
-            </footer>
+            <a class="panel-block is-active">
+                <span class="panel-icon">
+                <i class="fas fa-book" aria-hidden="true"></i>
+                </span>
+                bulma
+            </a>
+            <a class="panel-block">
+                <span class="panel-icon">
+                <i class="fas fa-book" aria-hidden="true"></i>
+                </span>
+                marksheet
+            </a>
+            <a class="panel-block">
+                <span class="panel-icon">
+                <i class="fas fa-book" aria-hidden="true"></i>
+                </span>
+                minireset.css
+            </a>
+            <a class="panel-block">
+                <span class="panel-icon">
+                <i class="fas fa-book" aria-hidden="true"></i>
+                </span>
+                jgthms.github.io
+            </a>
+            <div><button className="button is-warning courseButton">View Course Content</button></div>
+            </article>
             </div>
         )
     }

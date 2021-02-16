@@ -1,5 +1,6 @@
 import React from "react"
-
+import CourseCard from "./CourseCard";
+import InstructorNavbar from "./InstructorNavbar"
 class InstructorDashboard extends React.Component
 {
     constructor(props){
@@ -7,20 +8,15 @@ class InstructorDashboard extends React.Component
         this.state = {
 
         }
-        this.logOut = this.logOut.bind(this);
-    }
-
-    logOut()
-    {
-        window.localStorage.removeItem("instructor");
-        window.location.href = "/"
+        
     }
 
     render(){
         return(
             <div>
-            <button onClick = {this.logOut}>Logout</button>
+            <InstructorNavbar></InstructorNavbar>
             Welcome {window.localStorage.getItem("instructor")}
+            <CourseCard></CourseCard>
             </div>
         )
     }

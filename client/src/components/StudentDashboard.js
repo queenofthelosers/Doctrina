@@ -2,6 +2,7 @@ import React from "react"
 import CourseCard from "./CourseCard"
 import axios from "axios"
 import StudentNavbar from "./StudentNavbar"
+import "../stylesheets/StudentDash.css"
 class StudentDashboard extends React.Component{
     
     constructor(props)
@@ -11,7 +12,7 @@ class StudentDashboard extends React.Component{
             name : "",
             emailID : ""
         }
-        this.logOut = this.logOut.bind(this);
+        
     }
 
     componentDidMount()
@@ -22,26 +23,17 @@ class StudentDashboard extends React.Component{
         })
     }
 
-    logOut(){
-        window.localStorage.removeItem('token');
-        window.location.href = "/"
-    }
 
     render(){
         return(
             <div>
             <StudentNavbar></StudentNavbar>
-            "Authentication Completed, User EMAIL is : {this.state.emailID}"
-            <div>
-                <center><b><h1>MY COURSES</h1></b><button>+</button></center>
-                
-            </div>
-            <button onClick = {this.logOut}>LOG OUT</button>
+            <h1><b>Welcome, {this.state.name}</b></h1>
             <div className = "courseContainer">
-                <CourseCard/>
+                <center><b>Your Courses</b></center>
+                <br/>
                 <CourseCard/>
             </div>
-            
             </div>
         )
        
