@@ -133,6 +133,7 @@ func main() {
 	r.HandleFunc("/api/currentuser", getCurrUser)
 	r.HandleFunc("/api/add_instructor", CreateInstructor)
 	r.HandleFunc("/api/validate_instructor", ValidateInstructor)
+	r.HandleFunc("/api/create_lecture", createNewRepo)
 
 	//Mongo Connection Code
 	var err1 error
