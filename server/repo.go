@@ -5,10 +5,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+
 	"net/http"
-	"os/exec"
 	"os"
+	"os/exec"
+
 	"github.com/go-git/go-git/v5"
+	githttp "github.com/go-git/go-git/v5/plumbing/transport/http"
 )
 
 type LectureDetails struct {
@@ -27,6 +30,26 @@ func Shellout(command string) (error, string, string) {
 	return err, stdout.String(), stderr.String()
 }
 
+func gitCloner() {
+	url := "https://github.com/queenofthelosers/classes-repo.git"
+	token := "6648da7496571d85062c9570266881d639178740"
+	out, err := git.PlainClone("./classes", false, &git.CloneOptions{
+		// The intended use of a GitHub personal access token is in replace of your password
+		// because access tokens can easily be revoked.
+		// https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/
+		Auth: &githttp.BasicAuth{
+			Username: "abc123", // yes, this can be anything except an empty string
+			Password: token,
+		},
+		URL:      url,
+		Progress: os.Stdout,
+	})
+	fmt.Println(out)
+	if err != nil {
+		fmt.Println("error ", err)
+	}
+}
+
 func createNewRepo(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("content-type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -34,13 +57,26 @@ func createNewRepo(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 	if r.Method == "POST" {
 		var l LectureDetails
-		err := json.NewDecoder(r.Body).Decode(&l)
-		if err != nil {
+		err1 := json.NewDecoder(r.Body).Decode(&l)
+		if err1 != nil {
 			fmt.Println("hello")
-			fmt.Println(err)
+			fmt.Println(err1)
+		}
+		var out, errout string
+		var err error
+		err, out, errout = Shellout("find classes")
+		if err != nil {
+			log.Printf("error: %v\n", err)
+		}
+		fmt.Println("--- stdout ---")
+		fmt.Println(out)
+		fmt.Println("--- stderr ---")
+		fmt.Println(errout)
+		if errout[0] == 'f' {
+			gitCloner()
 		}
 		lectureName := l.LectureName
-		err, out, errout := Shellout("cd classes && mkdir " + lectureName + " && cd " + lectureName + "&& git init")
+		err, out, errout = Shellout("cd classes && mkdir " + lectureName + " && cd " + lectureName)
 		if err != nil {
 			log.Printf("error: %v\n", err)
 		}
@@ -52,7 +88,7 @@ func createNewRepo(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func cloneRepo(w http.ResponseWriter, r *http.Request){
+func cloneRepo(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("content-type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
@@ -65,16 +101,6 @@ func cloneRepo(w http.ResponseWriter, r *http.Request){
 		// 	fmt.Println(err)
 		// }
 		// lectureName := l.LectureName
-		a, _ := git.PlainClone("./clone", false, &git.CloneOptions{
-			URL: "../server/classes/deepak",
-			Progress: os.Stdout,
-		})
-		
-		// ... retrieving the branch being pointed by HEAD
-		ref, _ := a.Head()
-		// ... retrieving the commit object
-		commit, _ := a.CommitObject(ref.Hash())
-	
-		fmt.Println(commit)
+		gitCloner()
 	}
 }
