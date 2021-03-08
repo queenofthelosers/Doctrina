@@ -7,6 +7,8 @@ import (
 	"log"
 	"net/http"
 	"os/exec"
+	"os"
+	"github.com/go-git/go-git/v5"
 )
 
 type LectureDetails struct {
@@ -48,4 +50,31 @@ func createNewRepo(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(errout)
 	}
 
+}
+
+func cloneRepo(w http.ResponseWriter, r *http.Request){
+	w.Header().Set("content-type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+	if r.Method == "POST" {
+		// var l LectureDetails
+		// err := json.NewDecoder(r.Body).Decode(&l)
+		// if err != nil {
+		// 	fmt.Println("hello")
+		// 	fmt.Println(err)
+		// }
+		// lectureName := l.LectureName
+		a, _ := git.PlainClone("./clone", false, &git.CloneOptions{
+			URL: "../server/classes/deepak",
+			Progress: os.Stdout,
+		})
+		
+		// ... retrieving the branch being pointed by HEAD
+		ref, _ := a.Head()
+		// ... retrieving the commit object
+		commit, _ := a.CommitObject(ref.Hash())
+	
+		fmt.Println(commit)
+	}
 }
