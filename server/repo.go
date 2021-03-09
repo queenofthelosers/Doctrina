@@ -10,12 +10,14 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+
 	"github.com/go-git/go-git/v5"
 	githttp "github.com/go-git/go-git/v5/plumbing/transport/http"
 )
 
 type LectureDetails struct {
-	LectureName string `json:"LectureName"`
+	LectureName     string `json:"LectureName"`
+	LectureMarkdown string `json:"LectureMarkdown,omitempty"`
 }
 
 const ShellToUse = "bash"
@@ -87,6 +89,20 @@ func createNewRepo(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(out)
 		fmt.Println("--- stderr ---")
 		fmt.Println(errout)
+		lectureMarkdown := l.LectureMarkdown
+		fileName := lectureName + ".xml"
+		filePath, _ := filepath.Abs("./classes/" + lectureName + "/" + fileName)
+		file, err := os.Create(filePath)
+		if err != nil {
+			log.Fatalf("failed creating file: %s", err)
+		}
+		defer file.Close()
+		len, err1 := file.WriteString(lectureMarkdown)
+		if err1 != nil {
+			log.Fatalf("failed writing to file: %s", err)
+		}
+		fmt.Printf("\nFile Name: %s", file.Name())
+		fmt.Printf("\nLength: %d bytes", len)
 	}
 
 }
