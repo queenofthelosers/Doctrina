@@ -131,7 +131,7 @@ func main() {
 	r.HandleFunc("/auth/{provider}/callback", func1)
 	r.HandleFunc("/auth/{provider}", func2)
 	r.HandleFunc("/api/currentuser", getCurrUser)
-	r.HandleFunc("/api/add_instructor", CreateInstructor)
+	r.HandleFunc("/api/add_contributor", AddContributor)
 	r.HandleFunc("/api/validate_instructor", ValidateInstructor)
 	r.HandleFunc("/api/create_lecture", createNewRepo)
 	r.HandleFunc("/api/clone_lecture",cloneRepo)
