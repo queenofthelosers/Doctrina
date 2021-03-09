@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-
 	"net/http"
 	"os"
 	"os/exec"
+	"os/user"
 	"path/filepath"
 
 	"github.com/go-git/go-git/v5"
@@ -19,6 +19,9 @@ type LectureDetails struct {
 	LectureName     string `json:"LectureName"`
 	LectureMarkdown string `json:"LectureMarkdown,omitempty"`
 }
+
+var classPath string
+var homeDir string
 
 const ShellToUse = "bash"
 
@@ -38,7 +41,8 @@ func gitCloner() {
 	url := "https://github.com/queenofthelosers/classes-repo.git"
 	config, err := ReadConfig(filepath.Join(absPath, "google-details.json"))
 	token := config.GitAccessToken
-	out, err := git.PlainClone("./classes", false, &git.CloneOptions{
+
+	out, err := git.PlainClone(classPath, false, &git.CloneOptions{
 		// The intended use of a GitHub personal access token is in replace of your password
 		// because access tokens can easily be revoked.
 		// https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/
@@ -60,6 +64,12 @@ func createNewRepo(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+	usr, err := user.Current()
+	if err != nil {
+		log.Fatal(err)
+	}
+	homeDir = usr.HomeDir
+	classPath = homeDir + "/dev/classes"
 	if r.Method == "POST" {
 		var l LectureDetails
 		err1 := json.NewDecoder(r.Body).Decode(&l)
@@ -69,7 +79,7 @@ func createNewRepo(w http.ResponseWriter, r *http.Request) {
 		}
 		var out, errout string
 		var err error
-		err, out, errout = Shellout("find classes")
+		err, out, errout = Shellout("cd " + homeDir + "/dev" + " && find classes")
 		if err != nil {
 			log.Printf("error: %v\n", err)
 		}
@@ -81,7 +91,7 @@ func createNewRepo(w http.ResponseWriter, r *http.Request) {
 			gitCloner()
 		}
 		lectureName := l.LectureName
-		err, out, errout = Shellout("cd classes && mkdir " + lectureName + " && cd " + lectureName)
+		err, out, errout = Shellout("cd " + classPath + " && mkdir " + lectureName + " && cd " + lectureName)
 		if err != nil {
 			log.Printf("error: %v\n", err)
 		}
@@ -91,7 +101,7 @@ func createNewRepo(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(errout)
 		lectureMarkdown := l.LectureMarkdown
 		fileName := lectureName + ".xml"
-		filePath, _ := filepath.Abs("./classes/" + lectureName + "/" + fileName)
+		filePath, _ := filepath.Abs("/home/harshvardhan/dev/classes/" + lectureName + "/" + fileName)
 		file, err := os.Create(filePath)
 		if err != nil {
 			log.Fatalf("failed creating file: %s", err)
