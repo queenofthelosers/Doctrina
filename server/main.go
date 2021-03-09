@@ -31,12 +31,13 @@ type appUser struct {
 	Name  string             `json:"name" bson:"name"`
 }
 
-type GoogleDetail struct {
+type Details struct {
 	ClientID     string `json:"ClientID"`
 	ClientSecret string `json:"ClientSecret"`
+	GitAccessToken string `json:"GitAccessToken"`
 }
 
-func ReadConfig(inPath string) (*GoogleDetail, error) {
+func ReadConfig(inPath string) (*Details, error) {
 	configReader, err := os.Open(inPath)
 	if err != nil {
 		return nil, err
@@ -48,9 +49,9 @@ func ReadConfig(inPath string) (*GoogleDetail, error) {
 		return nil, err
 	}
 
-	google_details := GoogleDetail{}
-	json.Unmarshal(byteValue, &google_details)
-	return &google_details, nil
+	details := Details{}
+	json.Unmarshal(byteValue, &details)
+	return &details, nil
 }
 
 var current_user appUser

@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
-
+	"path/filepath"
 	"github.com/go-git/go-git/v5"
 	githttp "github.com/go-git/go-git/v5/plumbing/transport/http"
 )
@@ -31,8 +31,11 @@ func Shellout(command string) (error, string, string) {
 }
 
 func gitCloner() {
+	absPath, _ := os.Getwd()
+	absPath = filepath.Join(absPath, "")
 	url := "https://github.com/queenofthelosers/classes-repo.git"
-	token := "6648da7496571d85062c9570266881d639178740"
+	config, err := ReadConfig(filepath.Join(absPath, "google-details.json"))
+	token := config.GitAccessToken
 	out, err := git.PlainClone("./classes", false, &git.CloneOptions{
 		// The intended use of a GitHub personal access token is in replace of your password
 		// because access tokens can easily be revoked.
