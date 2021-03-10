@@ -10,9 +10,11 @@ import (
 	"os/exec"
 	"os/user"
 	"path/filepath"
-
+	"io/ioutil"
+	"time"
 	"github.com/go-git/go-git/v5"
 	githttp "github.com/go-git/go-git/v5/plumbing/transport/http"
+	"github.com/go-git/go-git/v5/plumbing/object"
 )
 
 type LectureDetails struct {
@@ -56,6 +58,61 @@ func gitCloner() {
 	fmt.Println(out)
 	if err != nil {
 		fmt.Println("error ", err)
+	}
+}
+
+func gitCommitter() {
+	directory := "C:/Users/Deepak George/dev/classes/";
+	r, err := git.PlainOpen(directory)
+	if err!=nil{
+		fmt.Println(err);
+	}
+	w, err := r.Worktree()
+	if err!=nil{
+		fmt.Println(err);
+	}
+	
+	fname :=  filepath.Join(directory, "example-gie")
+	err = ioutil.WriteFile(fname, []byte("hello world!"), 0644)
+	if err!=nil{
+		fmt.Println(err);
+	}
+	_, err = w.Add("example-gie")
+	if err!=nil{
+		fmt.Println("Error here ", err)
+	}
+	commit, err := w.Commit("example go-git commit", &git.CommitOptions{
+		Author: &object.Signature{
+			Name:  "John Doe",
+			Email: "john@doe.org",
+			When:  time.Now(),
+		},
+	})
+	obj, err := r.CommitObject(commit)
+	if err!=nil{
+		fmt.Println(err);
+	}
+	fmt.Println(obj);
+}
+
+func gitPusher() {
+	directory := "C:/Users/Deepak George/dev/classes";
+	r, err := git.PlainOpen(directory)
+	if err!=nil{
+		fmt.Println(err);
+	}
+	absPath, _ := os.Getwd()
+	absPath = filepath.Join(absPath, "")
+	config, err := ReadConfig(filepath.Join(absPath, "google-details.json"))
+	token := config.GitAccessToken
+	err = r.Push(&git.PushOptions{
+		Auth: &githttp.BasicAuth{
+			Username: "abc123", // yes, this can be anything except an empty string
+			Password: token,
+		},
+	})
+	if err!=nil{
+		fmt.Println("error here :",err);
 	}
 }
 
@@ -131,5 +188,28 @@ func cloneRepo(w http.ResponseWriter, r *http.Request) {
 		// }
 		// lectureName := l.LectureName
 		gitCloner()
+	}
+}
+
+//dummy router fx to test commit is working or no
+func commitRepo(w http.ResponseWriter, r *http.Request){
+	w.Header().Set("content-type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+	if r.Method == "POST" {
+		gitCommitter();
+	}
+}
+
+//dummy router fx to test push is working or no
+
+func pushRepo(w http.ResponseWriter, r *http.Request){
+	w.Header().Set("content-type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+	if r.Method == "POST" {
+		gitPusher();
 	}
 }
