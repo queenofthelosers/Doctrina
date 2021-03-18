@@ -2,6 +2,8 @@
 import React from 'react'
 import "../stylesheets/Login.css"
 import { Link } from "react-router-dom"
+import rightarrow from "../images/arrow_right.png"
+import FrontCarousel from "./FrontCarousel.js"
 class LoginPage extends React.Component{
     
     constructor(props)
@@ -23,12 +25,27 @@ class LoginPage extends React.Component{
         return(
         <div className="bgDiv">
         
-            <div className = "containerDiv">
-            <h1 className="heading1">Please sign in : </h1>
-                <div className = "login1" onClick = {this.instructorLogin}><center><b><Link to = "/instructorlogin">Instructor Login</Link></b></center></div>
-                <br/><br/>
-                <div className= "login2"><center><b><a onClick={this.setToken}>Student Login</a></b></center><br/></div>
+            <div className = "carousel">
+            <FrontCarousel></FrontCarousel></div>
+            <br/><br/><br/><br/>
+            <div className = "buttonContainer">
+                
+                <Link to = "/instructorlogin">
+                <div class = "figButton" onClick = {this.instructorLogin}>
+                    <b>Instructor Login</b>
+                    <img src = {rightarrow} className = "rightArrow"></img>
+                </div>
+                </Link>
+
+                
+                <div class = "figButton" onClick = {this.setToken}>
+                    <b>Student Login</b>
+                    <img src = {rightarrow} className = "rightArrow"></img>
+                </div>
+               
+                
             </div>
+        
         </div>
         
         );

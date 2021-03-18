@@ -1,3 +1,8 @@
+
+ body > #root > div {
+    height: 100vh;
+}
+
 .loginBox{
     height: 400px;
     width: 500px;
@@ -7,13 +12,23 @@
 }
 
 .bgDiv{
-    background-image: url("../images/instructor-bg1.png");
-    background-color:rgba(0, 0, 0, 0.89);
-    height: 100vh;
-    background-size: contain;
+    background-image: url("../images/frame1.png");
+    height: 100%;
+    background-size: cover;
     background-repeat: no-repeat;
     color: whitesmoke;
+    overflow:hidden;
 }
+
+.logo{
+
+}
+
+.carousel{
+    padding-top: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
+}   
 
 .containerDiv
 {
@@ -82,4 +97,34 @@
 a{
     color: white;
 }
+
+.figButton{
+    background: #DA1C3E;
+    border-radius: 32px;
+    color: white;
+    width: 301.28px;
+    height: 64px;
+    left: 126px;
+    top: 524px;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    align-items: center;
+    
+    /* padding: 16px 16px 16px 24px; */
+    
+}
+
+
+.buttonContainer{
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    margin-right:50%;
+    justify-content:space-evenly;
+    align-items: flex-end;
+    padding-bottom: 100px;
+    width: 50%;
+}
+
 
