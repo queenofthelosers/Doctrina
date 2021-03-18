@@ -11,7 +11,7 @@ class FrontCarousel extends React.Component{
        
         return(
             
-                <Carousel fade>
+                <Carousel>
                 <Carousel.Item interval={1000}>
                     <center>
                     <img
@@ -40,7 +40,7 @@ class FrontCarousel extends React.Component{
                     thumbnail
                     />
                     </center>
-                    <br/><br/>
+                    <br/><br/><br/>
                     <Carousel.Caption>
                     <h3>Welcome</h3>
                     <p>Doctrina is a Virtual Learning Platform that facilitates Flipped Mode of Instruction..</p>
