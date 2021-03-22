@@ -6,7 +6,7 @@ import StudentRoute from "./components/StudentRoute"
 import InstructorDashboard from "./components/InstructorDashboard"
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 import InstructorRoute from './components/InstructorRoute';
-
+import Editor from "./components/Editor";
 function App() {
   return (
     <Router>
@@ -14,6 +14,7 @@ function App() {
         <StudentRoute exact path = "/student" component={StudentDashboard}></StudentRoute>
         <Route exact path = "/instructorlogin" component={InstructorLogin}></Route>
         <InstructorRoute exact path = "/instructor_dashboard" component = {InstructorDashboard}></InstructorRoute>
+        <InstructorRoute exact path = "/editor" component = {Editor}></InstructorRoute>
     </Router>
   );
 }
