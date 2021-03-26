@@ -60,11 +60,13 @@ class Editor extends React.Component
         }
         else if(src == "video")
         {
-
+            let textToInsert = "<video src = \"\"/>"
+            this.refs.mainEditor.editor.session.insert(this.state.cursorPos, textToInsert);
         }
         else if(src == "img")
         {
-
+            let textToInsert = "<image src = \"\"\>"
+            this.refs.mainEditor.editor.session.insert(this.state.cursorPos, textToInsert);
         }
         else if(src == "doc")
         {
@@ -72,7 +74,8 @@ class Editor extends React.Component
         }
         else if(src == "pause")
         {
-
+            let textToInsert = "<break time = \"\"/>" 
+            this.refs.mainEditor.editor.session.insert(this.state.cursorPos, textToInsert); 
         }
         else if(src == "emphasis")
         {
@@ -80,11 +83,13 @@ class Editor extends React.Component
         }
         else if(src == "say-as")
         {
-
+            let textToInsert = "<say-as interpret-as = \"\"" 
+            this.refs.mainEditor.editor.session.insert(this.state.cursorPos, textToInsert);
         }
         else if(src == "highlight")
         {
-
+            let textToInsert = "<highlight box = \"\"/>"
+            this.refs.mainEditor.editor.session.insert(this.state.cursorPos, textToInsert);
         }
     }
 

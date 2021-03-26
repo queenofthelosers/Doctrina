@@ -23,7 +23,6 @@ class InstructorDashboard extends React.Component
             <center style = {{color:"white"}}><b>My Courses</b></center>
             <br/><br/>
             <CourseCard></CourseCard>
-            <button> <Link to = "/editor">Go to Editor</Link></button>
             </div>
         )
     }

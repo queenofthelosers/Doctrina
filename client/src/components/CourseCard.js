@@ -1,5 +1,6 @@
 import React from "react"
 import "../stylesheets/CourseCard.css"
+import {Link} from "react-router-dom"
 class CourseCard extends React.Component
 {
     constructor(props)
@@ -54,6 +55,20 @@ class CourseCard extends React.Component
             <div className = "courseCard">
                 <div className = "courseID">
                     <b>CS F111</b>
+                    &nbsp;&nbsp;&nbsp;
+                    <b>
+                    Computer Programming
+                    </b>
+                </div>
+                <div className = "courseDetails">
+                    IC : Panda<br/>
+                    Course Start : 26/03/21<br/>
+                    Course End : 5/04/21
+                    <br/>
+                </div>
+                <div className = "cardFooter">
+                    <div className = "courseButton"><Link to = "/editor" className = "removeDec">Add Content</Link></div>
+                    <div className = "courseButton">View Contents</div>
                 </div>
             </div>
         )

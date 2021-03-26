@@ -1,26 +1,49 @@
 .courseCard
 {
-    padding-left:15%;
-    padding-right:15%;
+    padding-left:1%;
+    padding-right:1%;
+    padding-top: 20px;
+    padding-bottom: 20px;
     margin-left:25%;
     margin-right: 25%;
     border-radius: 30px;
     background-color: black;
     color: white;
-    height: 20%;
+    height: fit-content;
     display: flex;
     flex-direction: column;
 }
 
 .courseID
 {
-    background-color: white;
+    background-color: #DA1C3E;
     padding: 5px;
-    color: black;
+    color: white;
     border-radius: 10px;
     justify-content: flex-start;
+    float: left;
 }
 .courseButton
 {
+    background-color: #DA1C3E;
+    color:white;
+    border-radius: 14px;
+    padding: 0.8%;
     float: right;
+    margin-left: 10px;
+}
+.cardFooter
+{
+    justify-content: flex-end;
+}
+
+.courseDetails
+{
+    margin-top: 5%;
+}
+
+.removeDec:hover
+{
+    color: #fff;
+    text-decoration: none;
 }

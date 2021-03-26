@@ -17,7 +17,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     color: whitesmoke;
-    overflow:hidden;
+    overflow-y:auto;
 }
 
 .logo{
