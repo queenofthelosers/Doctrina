@@ -61,19 +61,15 @@ class InstructorLogin extends React.Component
           <div className = "parentContainer">
             <div className = "loginContainer">
             <div className = "fbox">
-              <div className = "loginIcon">
-
-
-              </div>
               <div className = "loginForm">
                   <div class="field">
-                  <label class="label">Username</label>
+                  <label class="label t1">Username</label>
                   <div class="control">
                       <input class="input try1" type="text" placeholder="Text input" onChange = {this.handleFormInputs} name = "username"/>
                   </div>
                   </div>
                   <div class="field">
-                  <label class="label">Password</label>
+                  <label class="label t2">Password</label>
                   <div class="control has-icons-left has-icons-right">
                   <input class="input try1" type="password" placeholder="Text input"  onChange= {this.handleFormInputs} name = "password"/>
                   </div>

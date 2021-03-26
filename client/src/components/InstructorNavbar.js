@@ -1,5 +1,8 @@
 import React from "react"
 import "../images/bits-logo.png"
+import doctrinaLogo from "../images/doctrina-logo.png"
+import profilePic from "../images/profilepic.png"
+//import "../stylesheets/InstructorDash.css"
 class InstructorNavbar extends React.Component{
     constructor(props){
         super(props);
@@ -11,69 +14,78 @@ class InstructorNavbar extends React.Component{
     }
     render()
     {
+        const styles = {
+            color:"#DA1C3E"
+        }
         return(
-            <div>
-            <nav class="navbar" role="navigation" aria-label="main navigation">
+            <nav class="navbar is-black">
             <div class="navbar-brand">
-                {/* <a class="navbar-item" href="https://bulma.io">
-                <img src="../images/bits-logo.png" width="250" height="250"/>
-                </a> */}
-
-                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
+                <a class="navbar-item" href="https://bulma.io">
+                <img src={doctrinaLogo} alt="Bulma: a modern CSS framework based on Flexbox" width="100" height="90"/>
                 </a>
+                <div class="navbar-burger" data-target="navbarExampleTransparentExample">
+                <span></span>
+                <span></span>
+                <span></span>
+                </div>
             </div>
 
-            <div id="navbarBasicExample" class="navbar-menu">
+            <div id="navbarExampleTransparentExample" class="navbar-menu">
                 <div class="navbar-start">
-                <a class="navbar-item">
-                    Profile
+                <a class="navbar-item" href="https://bulma.io/" style = {styles}>
+                    Home
                 </a>
-
-                <a class="navbar-item">
-                    My Courses
-                </a>
-                <a class="navbar-item">
-                    Invites
-                </a>
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
-                    More
+                <div class="navbar-item has-dropdown is-hoverable " >
+                    <a class="navbar-link" href="https://bulma.io/documentation/overview/start/" style = {styles}>
+                    Docs
                     </a>
-
-                    <div class="navbar-dropdown">
-                    <a class="navbar-item">
-                        About
+                    <div class="navbar-dropdown is-boxed is-black navbarColors">
+                    <a class="navbar-item" href="https://bulma.io/documentation/overview/start/" style = {styles}>
+                        Overview
                     </a>
-                    <a class="navbar-item">
-                        Jobs
+                    <a class="navbar-item" href="https://bulma.io/documentation/overview/modifiers/" style = {styles}>
+                        Modifiers
                     </a>
-                    <a class="navbar-item">
-                        Contact
+                    <a class="navbar-item" href="https://bulma.io/documentation/columns/basics/" style = {styles}>
+                        Columns
                     </a>
-                    <hr class="navbar-divider"/>
-                    <a class="navbar-item">
-                        Report an issue
+                    <a class="navbar-item" href="https://bulma.io/documentation/layout/container/" style = {styles}>
+                        Layout
+                    </a>
+                    <a class="navbar-item" href="https://bulma.io/documentation/form/general/" style = {styles}>
+                        Form
+                    </a>
+                    <hr class="navbar-divider" style = {styles}/>
+                    <a class="navbar-item" href="https://bulma.io/documentation/elements/box/" style = {styles}>
+                        Elements
+                    </a>
+                    <a class="navbar-item" href="https://bulma.io/documentation/components/breadcrumb/" style = {styles}>
+                        Components
                     </a>
                     </div>
                 </div>
                 </div>
 
                 <div class="navbar-end">
+                <a class="navbar-item" href="https://bulma.io">
+                <img src={profilePic} alt="Bulma: a modern CSS framework based on Flexbox" width="30" height="90"/>
+                </a>
                 <div class="navbar-item">
-                    <div class="buttons">
-                    <a class="button is-danger" onClick = {this.instructorLogout}>
-                        <strong>Logout</strong>
-                    </a>
-                    
+                    <b>{this.props.signedInUser}</b>    
+                </div>
+                &nbsp; &nbsp; &nbsp;
+                <div class="navbar-item">
+                    <div class="field is-grouped">
+                    <p class="control">
+                    <button class="button is-danger is-rounded signOut" onClick = {this.instructorLogout}>Sign Out</button>
+                    </p>
                     </div>
                 </div>
+                
                 </div>
             </div>
             </nav>
-            </div>
+            
         )
     }
 }
