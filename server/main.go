@@ -138,6 +138,7 @@ func main() {
 	r.HandleFunc("/api/clone_lecture",cloneRepo)
 	r.HandleFunc("/api/commit_lecture",commitRepo)
 	r.HandleFunc("/api/push_lecture",pushRepo)
+	r.HandleFunc("/api/upload",uploadFiles)
 
 	//Mongo Connection Code
 	var err1 error

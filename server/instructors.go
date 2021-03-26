@@ -8,7 +8,8 @@ import(
 	"go.mongodb.org/mongo-driver/bson"
 	"context"
 	"time"
-
+	"os"
+	"io"
 	//"github.com/gorilla/mux"
 	//"go.mongodb.org/mongo-driver/mongo"
 )
@@ -111,4 +112,53 @@ func ValidateInstructor(w http.ResponseWriter,r *http.Request){
 		}
 		
 	}	
+}
+
+
+func uploadFiles(w http.ResponseWriter, r *http.Request){
+	w.Header().Set("content-type","application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST")
+    w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+	if r.Method == "POST" {
+		err := r.ParseMultipartForm(20*1024*1024) 
+		if err != nil {
+			fmt.Fprintln(w, err)
+			return
+		}
+
+		formdata := r.MultipartForm 
+
+
+		files := formdata.File["multiplefiles"] 
+
+		for i, _ := range files { 
+			file, err := files[i].Open()
+			defer file.Close()
+			if err != nil {
+				fmt.Fprintln(w, err)
+				return
+			}
+
+			out, err := os.Create("files/"+files[i].Filename) //writes into files directory
+
+			defer out.Close()
+			if err != nil {
+				fmt.Println(err)
+				fmt.Fprintf(w, "Unable to create the file for writing. Check your write access privilege")
+				return
+			}
+
+			_, err = io.Copy(out, file) 
+
+			if err != nil {
+				fmt.Fprintln(w, err)
+				return
+			}
+
+			fmt.Fprintf(w, "Files uploaded successfully : ")
+			fmt.Fprintf(w, files[i].Filename+"\n")
+
+		}
+	}
 }

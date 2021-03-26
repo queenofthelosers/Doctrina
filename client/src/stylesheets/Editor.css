@@ -28,7 +28,7 @@ html,body{
     margin-bottom: 5%;
     padding: 5%;
     height: 80%;
-    width: 40%;
+    width: 60%;
     background-color: rgb(54, 54, 54);
     overflow-y: auto;
     border-radius: 25px;
@@ -40,6 +40,11 @@ html,body{
     /* width: 200px; */
     /* justify-content: space-evenly; */
 }
+
+.fileUploader{
+  padding-right:20% ;
+}
+
 #root
 {
     height: 100vh;
