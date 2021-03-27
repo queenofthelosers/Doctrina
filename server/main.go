@@ -142,7 +142,7 @@ func main() {
 
 	//Mongo Connection Code
 	var err1 error
-	client, err1 = mongo.NewClient(options.Client().ApplyURI("mongodb+srv://admin:admin@cluster0.5ozca.mongodb.net/seproj?retryWrites=true&w=majority"))
+	client, err1 = mongo.NewClient(options.Client().ApplyURI("mongodb+srv://admin:admin@cluster0.5ozca.mongodb.net/seproj?retryWrites=true&w=majority/"))
 	if err != nil {
 		log.Fatal(err)
 	}

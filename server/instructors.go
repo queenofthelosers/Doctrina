@@ -10,9 +10,12 @@ import(
 	"time"
 	"os"
 	"io"
+	"io/ioutil"
 	//"github.com/gorilla/mux"
 	//"go.mongodb.org/mongo-driver/mongo"
 )
+
+
 
 type Instructor struct{
 	ID primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
@@ -26,6 +29,46 @@ type Instructor struct{
 type LoginResult struct{
 	Response string `json:"response,omitempty"`
 }
+
+
+type UploadConfig struct {
+	Files []string `Files`
+}
+
+func isFileUploaded(upFile string) bool{
+	config_file, _ := os.Open("uploadconfig.json")
+	defer config_file.Close()
+	decoder := json.NewDecoder(config_file)
+	configuration := UploadConfig{}
+	err := decoder.Decode(&configuration)
+	if err != nil {
+		fmt.Println("error:", err)
+	}
+	for i := 0; i < len(configuration.Files); i++ {
+		if configuration.Files[i] == upFile {
+			return true
+		}
+	}
+	return false
+}
+
+func updateConfig(upfile string) {
+	config_file, _ := os.Open("uploadconfig.json")
+	defer config_file.Close()
+	decoder := json.NewDecoder(config_file)
+	configuration := UploadConfig{}
+	err := decoder.Decode(&configuration)
+	if err != nil {
+		fmt.Println("error:", err)
+	}
+	configuration.Files = append(configuration.Files, upfile)
+	bs, err := json.Marshal(configuration)
+	if err != nil {
+		fmt.Println("error:", err)
+	}
+	ioutil.WriteFile("uploadconfig.json", bs, 0644)
+}
+
 
 func CreateInstructor(w http.ResponseWriter,r *http.Request){
 	w.Header().Add("content-type","application/json")
@@ -139,25 +182,32 @@ func uploadFiles(w http.ResponseWriter, r *http.Request){
 				fmt.Fprintln(w, err)
 				return
 			}
+			upfile := files[i].Filename
+			if !isFileUploaded(upfile) {
+				out, err := os.Create("files/"+files[i].Filename) //writes into files directory,make files directory
+				defer out.Close()
+				if err != nil {
+					fmt.Println(err)
+					fmt.Fprintf(w, "Unable to create the file for writing. Check your write access privilege")
+					return
+				}
 
-			out, err := os.Create("files/"+files[i].Filename) //writes into files directory
+				_, err = io.Copy(out, file) 
 
-			defer out.Close()
-			if err != nil {
-				fmt.Println(err)
-				fmt.Fprintf(w, "Unable to create the file for writing. Check your write access privilege")
-				return
+				if err != nil {
+					fmt.Fprintln(w, err)
+					return
+				}
+
+				fmt.Fprintf(w, "Files uploaded successfully : ")
+				fmt.Fprintf(w, files[i].Filename+"\n")
+				updateConfig(upfile)
+			} else{
+				fmt.Println("File already uploaded.")
 			}
-
-			_, err = io.Copy(out, file) 
-
-			if err != nil {
-				fmt.Fprintln(w, err)
-				return
-			}
-
-			fmt.Fprintf(w, "Files uploaded successfully : ")
-			fmt.Fprintf(w, files[i].Filename+"\n")
+			
+	 
+			
 
 		}
 	}
