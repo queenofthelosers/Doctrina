@@ -15,7 +15,7 @@ class FrontCarousel extends React.Component{
                 <Carousel.Item interval={1000}>
                     <center>
                     <img
-                    // className="d-block w-100"
+                    // class="d-block w-100"
                     src={img4}
                     width={500}
                     height={500}
@@ -32,7 +32,7 @@ class FrontCarousel extends React.Component{
                 <Carousel.Item interval={1000}>
                     <center>
                     <img
-                    //className="d-block w-100"
+                    //class="d-block w-100"
                     width={500}
                     height={300}
                     src={img3}

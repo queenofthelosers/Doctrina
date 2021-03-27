@@ -32,8 +32,8 @@ type appUser struct {
 }
 
 type Details struct {
-	ClientID     string `json:"ClientID"`
-	ClientSecret string `json:"ClientSecret"`
+	ClientID       string `json:"ClientID"`
+	ClientSecret   string `json:"ClientSecret"`
 	GitAccessToken string `json:"GitAccessToken"`
 }
 
@@ -89,7 +89,7 @@ func func1(w http.ResponseWriter, r *http.Request) {
 		result, _ := collection.InsertOne(ctx, current_user)
 		fmt.Println(result)
 	}
-	http.Redirect(w, r, "http://localhost:3000/student", http.StatusSeeOther)
+	http.Redirect(w, r, "http://127.0.0.1:3000/student", http.StatusSeeOther)
 }
 
 func func2(w http.ResponseWriter, r *http.Request) {
@@ -124,7 +124,7 @@ func main() {
 	config, err := ReadConfig(filepath.Join(absPath, "google-details.json"))
 
 	goth.UseProviders(
-		google.New(config.ClientID, config.ClientSecret, "http://localhost:8080/auth/google/callback", "email", "profile"),
+		google.New(config.ClientID, config.ClientSecret, "http://127.0.0.1:8080/auth/google/callback", "email", "profile"),
 	)
 
 	r := mux.NewRouter()
@@ -135,10 +135,10 @@ func main() {
 	r.HandleFunc("/api/add_contributor", AddContributor)
 	r.HandleFunc("/api/validate_instructor", ValidateInstructor)
 	r.HandleFunc("/api/create_lecture", createNewRepo)
-	r.HandleFunc("/api/clone_lecture",cloneRepo)
-	r.HandleFunc("/api/commit_lecture",commitRepo)
-	r.HandleFunc("/api/push_lecture",pushRepo)
-	r.HandleFunc("/api/upload",uploadFiles)
+	r.HandleFunc("/api/clone_lecture", cloneRepo)
+	r.HandleFunc("/api/commit_lecture", commitRepo)
+	r.HandleFunc("/api/push_lecture", pushRepo)
+	r.HandleFunc("/api/upload", uploadFiles)
 
 	//Mongo Connection Code
 	var err1 error

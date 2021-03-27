@@ -7,6 +7,8 @@ import InstructorDashboard from "./components/InstructorDashboard"
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 import InstructorRoute from './components/InstructorRoute';
 import Editor from "./components/Editor";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 function App() {
   return (
     <Router>
