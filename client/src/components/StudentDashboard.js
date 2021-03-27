@@ -17,7 +17,7 @@ class StudentDashboard extends React.Component{
 
     componentDidMount()
     {
-        axios.get("http://localhost:8080/api/currentuser").then((response)=>{
+        axios.get("http://127.0.0.1:8080/api/currentuser").then((response)=>{
             console.log(response.data);
             this.setState({name : response.data.name , emailID: response.data.email})
         })

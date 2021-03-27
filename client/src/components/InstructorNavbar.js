@@ -19,11 +19,11 @@ class InstructorNavbar extends React.Component{
         }
         return(
             <nav class="navbar is-black">
-            <div class="navbar-brand">
+            <div className="navbar-brand">
                 <a class="navbar-item" href="https://bulma.io">
                 <img src={doctrinaLogo} alt="Bulma: a modern CSS framework based on Flexbox" width="100" height="90"/>
                 </a>
-                <div class="navbar-burger" data-target="navbarExampleTransparentExample">
+                <div className="navbar-burger" data-target="navbarExampleTransparentExample">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -31,15 +31,15 @@ class InstructorNavbar extends React.Component{
             </div>
 
             <div id="navbarExampleTransparentExample" class="navbar-menu">
-                <div class="navbar-start">
+                <div className="navbar-start">
                 <a class="navbar-item" href="https://bulma.io/" style = {styles}>
                     Home
                 </a>
-                <div class="navbar-item has-dropdown is-hoverable " >
+                <div className="navbar-item has-dropdown is-hoverable " >
                     <a class="navbar-link" href="https://bulma.io/documentation/overview/start/" style = {styles}>
                     Docs
                     </a>
-                    <div class="navbar-dropdown is-boxed is-black navbarColors">
+                    <div className="navbar-dropdown is-boxed is-black navbarColors">
                     <a class="navbar-item" href="https://bulma.io/documentation/overview/start/" style = {styles}>
                         Overview
                     </a>
@@ -66,16 +66,16 @@ class InstructorNavbar extends React.Component{
                 </div>
                 </div>
 
-                <div class="navbar-end">
+                <div className="navbar-end">
                 <a class="navbar-item" href="https://bulma.io">
                 <img src={profilePic} alt="Bulma: a modern CSS framework based on Flexbox" width="30" height="90"/>
                 </a>
-                <div class="navbar-item">
+                <div className="navbar-item">
                     <b>{this.props.signedInUser}</b>    
                 </div>
                 &nbsp; &nbsp; &nbsp;
-                <div class="navbar-item">
-                    <div class="field is-grouped">
+                <div className="navbar-item">
+                    <div className="field is-grouped">
                     <p class="control">
                     <button class="button is-danger is-rounded signOut" onClick = {this.instructorLogout}>Sign Out</button>
                     </p>

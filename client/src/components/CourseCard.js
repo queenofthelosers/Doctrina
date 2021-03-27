@@ -17,7 +17,7 @@ class CourseCard extends React.Component
             //     CS F111 Computer Programming
             // </p>
             
-            // <div class="panel-block">
+            // <div className="panel-block">
             //     <p class="control has-icons-left">
             //     <input class="input is-link" type="text" placeholder="Search"/>
             //     <span class="icon is-left">
@@ -49,7 +49,7 @@ class CourseCard extends React.Component
             //     </span>
             //     jgthms.github.io
             // </a>
-            // <div><button className="button is-warning courseButton">View Course Content</button></div>
+            // <div><button class="button is-warning courseButton">View Course Content</button></div>
             // </article>
             // </div>
             <div className = "courseCard">
@@ -67,7 +67,7 @@ class CourseCard extends React.Component
                     <br/>
                 </div>
                 <div className = "cardFooter">
-                    <div className = "courseButton"><Link to = "/editor" className = "removeDec">Add Content</Link></div>
+                    <div className = "courseButton"><Link to = "/editor" class = "removeDec">Add Content</Link></div>
                     <div className = "courseButton">View Contents</div>
                 </div>
             </div>

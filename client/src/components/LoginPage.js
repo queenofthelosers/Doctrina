@@ -17,7 +17,7 @@ class LoginPage extends React.Component{
         window.localStorage.setItem('token','student');
         const x = window.localStorage.getItem('token');
         console.log(x);
-        window.location="http://localhost:8080/auth/google"
+        window.location="http://127.0.0.1:8080/auth/google"
     }
 
     render(){
@@ -31,16 +31,16 @@ class LoginPage extends React.Component{
             <div className = "buttonContainer">
                 
                 <Link to = "/instructorlogin">
-                <div class = "figButton" onClick = {this.instructorLogin}>
+                <div className = "figButton" onClick = {this.instructorLogin}>
                     <b>Instructor Login</b>
-                    <img src = {rightarrow} className = "rightArrow"></img>
+                    <img src = {rightarrow} class = "rightArrow"></img>
                 </div>
                 </Link>
 
                 
-                <div class = "figButton" onClick = {this.setToken}>
+                <div className = "figButton" onClick = {this.setToken}>
                     <b>Student Login</b>
-                    <img src = {rightarrow} className = "rightArrow"></img>
+                    <img src = {rightarrow} class = "rightArrow"></img>
                 </div>
                
                 

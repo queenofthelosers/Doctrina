@@ -27,7 +27,7 @@ class InstructorLogin extends React.Component
         }
         JSON.stringify(submittedInformation)
        
-        axios.post("http://localhost:8080/api/validate_instructor",submittedInformation,{headers: {
+        axios.post("http://127.0.0.1:8080/api/validate_instructor",submittedInformation,{headers: {
             'Content-Type': 'application/json;charset=UTF-8'
         }}).then((res)=>{
               console.log(res.data)
@@ -62,15 +62,15 @@ class InstructorLogin extends React.Component
             <div className = "loginContainer">
             <div className = "fbox">
               <div className = "loginForm">
-                  <div class="field">
+                  <div className="field">
                   <label class="label t1">Username</label>
-                  <div class="control">
+                  <div className="control">
                       <input class="input try1" type="text" placeholder="Text input" onChange = {this.handleFormInputs} name = "username"/>
                   </div>
                   </div>
-                  <div class="field">
+                  <div className="field">
                   <label class="label t2">Password</label>
-                  <div class="control has-icons-left has-icons-right">
+                  <div className="control has-icons-left has-icons-right">
                   <input class="input try1" type="password" placeholder="Text input"  onChange= {this.handleFormInputs} name = "password"/>
                   </div>
                   </div>
@@ -87,11 +87,11 @@ class InstructorLogin extends React.Component
             
 
     {/* <center>
-    <div class="field is-grouped">
-    <div class="control">
+    <div className="field is-grouped">
+    <div className="control">
         <button class="button is-link" onClick={this.validateUser}>Sign In</button>
     </div>
-    <div class="control">
+    <div className="control">
         <button class="button is-link is-light" onClick = {this.goBack}>Back</button>
     </div>
     </div>

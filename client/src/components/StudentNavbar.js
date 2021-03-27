@@ -14,7 +14,7 @@ class StudentNavbar extends React.Component{
         return(
             <div>
             <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
+            <div className="navbar-brand">
                 {/* <a class="navbar-item" href="https://bulma.io">
                 <img src="../images/bits-logo.png" width="250" height="250"/>
                 </a> */}
@@ -27,7 +27,7 @@ class StudentNavbar extends React.Component{
             </div>
 
             <div id="navbarBasicExample" class="navbar-menu">
-                <div class="navbar-start">
+                <div className="navbar-start">
                 <a class="navbar-item">
                     Profile
                 </a>
@@ -36,12 +36,12 @@ class StudentNavbar extends React.Component{
                     My Courses
                 </a>
 
-                <div class="navbar-item has-dropdown is-hoverable">
+                <div className="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
                     More
                     </a>
 
-                    <div class="navbar-dropdown">
+                    <div className="navbar-dropdown">
                     <a class="navbar-item">
                         About
                     </a>
@@ -59,9 +59,9 @@ class StudentNavbar extends React.Component{
                 </div>
                 </div>
 
-                <div class="navbar-end">
-                <div class="navbar-item">
-                    <div class="buttons">
+                <div className="navbar-end">
+                <div className="navbar-item">
+                    <div className="buttons">
                     <a class="button is-danger" onClick = {this.studentLogout}>
                         <strong>Logout</strong>
                     </a>
