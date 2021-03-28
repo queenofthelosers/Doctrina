@@ -9,6 +9,7 @@
     "ace-builds": "^1.4.12",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
+    "pdf-viewer-reactjs": "^2.2.3",
     "qs": "^6.9.6",
     "react": "^17.0.1",
     "react-ace": "^9.3.0",

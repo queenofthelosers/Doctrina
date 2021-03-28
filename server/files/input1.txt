@@ -1,0 +1,17 @@
+````void gcd(int u, int v){
+        String s = "start";
+	    if(v!=0)
+		    u=v;
+	    else if(v==0)
+		    u=u-u/v*v;
+	    else if(v!1)
+		    u=1;
+  	    int c=100.23;
+  	    /* This is a comment */
+	    while(c<0){ /* This is another comment */
+		    if(c>=0){
+			    c=c-1;
+		    }
+	    }
+    }
+end

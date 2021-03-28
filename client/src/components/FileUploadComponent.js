@@ -20,7 +20,11 @@ class FileUploadComponent extends React.Component {
         console.log(res.data);
     }
     onChange(e) {
-        this.setState({ files: [...this.state.files, ...e.target.files] })
+        this.setState({ files: [...this.state.files, ...e.target.files] },()=>{
+          console.log("Callback :",this.state.files);
+          this.props.handleFileChange(this.state.files);
+        });
+        
     }
     async uploadFile(files){
         
