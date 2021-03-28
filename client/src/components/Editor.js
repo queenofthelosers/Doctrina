@@ -6,6 +6,8 @@ import "ace-builds/src-noconflict/mode-xml";
 import "ace-builds/src-noconflict/theme-monokai";
 import bits from "../images/bits-logo.png"
 import FileUploadComponent from "../components/FileUploadComponent"
+import PDFPreviewer from "./PDFPreviewer"
+import {Document, Page} from 'react-pdf'
 class Editor extends React.Component
 {
     constructor(props)
@@ -16,11 +18,14 @@ class Editor extends React.Component
             cursorPos : {
                 row : "",
                 column : ""
-            }
+            },
+            files:[]
         }
         
     }
-    
+    updateFileState = (f) =>{
+        this.setState({ files: [ ...f] }, () => {console.log("\nUpdateFileState:\n",f,"\n",this.state.files)});
+    }
     onChange = (newValue) =>
     {
         console.log("change", newValue);    
@@ -146,34 +151,18 @@ class Editor extends React.Component
                     Slide Images
                 </h1> 
                 <div className = "slideImages">
-                    <div> Slide 1</div>
+                    {/* <div> Slide 1</div>
                     <img src = {bits} className = "imgContainer"/>
                     <div>Slide 2</div>
                     <img src = {bits} className = "imgContainer"/>
                     <div>Slide 3</div>
-                    <img src = {bits} className = "imgContainer"/>
-                    
+                    <img src = {bits} className = "imgContainer"/> */}
+                    <PDFPreviewer filePath={this.state.files}></PDFPreviewer>
                 </div>
                 
                 </div>
                 <div className = "fileUploader">
-                    {/* <div className="file has-name is-boxed">
-                    <label className="file-label">
-                        <input className="file-input" type="file" name="resume"/>
-                        <span className="file-cta">
-                        <span className="file-icon">
-                            <i className="fas fa-upload"></i>
-                        </span>
-                        <span className="file-label">
-                            Choose a file…
-                        </span>
-                        </span>
-                        <span className="file-name">
-                        
-                        </span>
-                    </label>
-                    </div> */}
-                    <FileUploadComponent></FileUploadComponent>
+                    <FileUploadComponent handleFileChange={this.updateFileState}></FileUploadComponent>
                 </div>
             </div>
             </div>
