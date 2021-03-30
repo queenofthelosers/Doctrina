@@ -7,7 +7,7 @@ import "ace-builds/src-noconflict/theme-monokai";
 import bits from "../images/bits-logo.png"
 import FileUploadComponent from "../components/FileUploadComponent"
 import PDFPreviewer from "./PDFPreviewer"
-import {Document, Page} from 'react-pdf'
+
 class Editor extends React.Component
 {
     constructor(props)
@@ -26,6 +26,8 @@ class Editor extends React.Component
     updateFileState = (f) =>{
         this.setState({ files: [ ...f] }, () => {console.log("\nUpdateFileState:\n",f,"\n",this.state.files)});
     }
+
+    
     onChange = (newValue) =>
     {
         console.log("change", newValue);    
@@ -146,7 +148,7 @@ class Editor extends React.Component
                 <button onClick = {this.getAceValue} className = "btn btn-secondary btn-sm"> check log </button>
                 </div>
                 </div>
-                <div>   
+                <div className = "slideContainer">   
                 <h1>
                     Slide Images
                 </h1> 
@@ -157,7 +159,7 @@ class Editor extends React.Component
                     <img src = {bits} className = "imgContainer"/>
                     <div>Slide 3</div>
                     <img src = {bits} className = "imgContainer"/> */}
-                    <PDFPreviewer filePath={this.state.files}></PDFPreviewer>
+                    <PDFPreviewer filePath={this.state.files[this.state.files.length-1]}></PDFPreviewer>
                 </div>
                 
                 </div>

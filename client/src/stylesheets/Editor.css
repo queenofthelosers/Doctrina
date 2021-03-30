@@ -26,14 +26,17 @@ html,body{
 .slideImages
 {
     margin-bottom: 5%;
-    padding: 5%;
+    padding: 1%;
     height: 80%;
-    width: 60%;
+    width: 80%;
     background-color: rgb(54, 54, 54);
     overflow-y: auto;
     border-radius: 25px;
 }
-
+.slideContainer
+{
+  width: 70%;
+}
 .controlButtons{
     display:flex;
     flex-direction: row;
