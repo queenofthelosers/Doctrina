@@ -2,6 +2,7 @@ import React from "react"
 import "../images/bits-logo.png"
 import doctrinaLogo from "../images/doctrina-logo.png"
 import profilePic from "../images/profilepic.png"
+import {Link} from "react-router-dom"
 //import "../stylesheets/InstructorDash.css"
 class InstructorNavbar extends React.Component{
     constructor(props){
@@ -20,9 +21,9 @@ class InstructorNavbar extends React.Component{
         return(
             <nav class="navbar is-black">
             <div className="navbar-brand">
-                <a class="navbar-item" href="https://bulma.io">
+                <Link class="navbar-item" to="/instructor_dashboard">
                 <img src={doctrinaLogo} alt="Bulma: a modern CSS framework based on Flexbox" width="100" height="90"/>
-                </a>
+                </Link>
                 <div className="navbar-burger" data-target="navbarExampleTransparentExample">
                 <span></span>
                 <span></span>
@@ -32,22 +33,22 @@ class InstructorNavbar extends React.Component{
 
             <div id="navbarExampleTransparentExample" class="navbar-menu">
                 <div className="navbar-start">
-                <a class="navbar-item" href="https://bulma.io/" style = {styles}>
+                <a class="navbar-item" href="/instructor_dashboard" style = {styles}>
                     Home
                 </a>
                 <div className="navbar-item has-dropdown is-hoverable " >
                     <a class="navbar-link" href="https://bulma.io/documentation/overview/start/" style = {styles}>
-                    Docs
+                    More
                     </a>
                     <div className="navbar-dropdown is-boxed is-black navbarColors">
                     <a class="navbar-item" href="https://bulma.io/documentation/overview/start/" style = {styles}>
-                        Overview
+                        Invites
                     </a>
                     <a class="navbar-item" href="https://bulma.io/documentation/overview/modifiers/" style = {styles}>
-                        Modifiers
+                        Reminders
                     </a>
                     <a class="navbar-item" href="https://bulma.io/documentation/columns/basics/" style = {styles}>
-                        Columns
+                        Queries
                     </a>
                     <a class="navbar-item" href="https://bulma.io/documentation/layout/container/" style = {styles}>
                         Layout

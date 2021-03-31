@@ -7,6 +7,7 @@ import "ace-builds/src-noconflict/theme-monokai";
 import bits from "../images/bits-logo.png"
 import FileUploadComponent from "../components/FileUploadComponent"
 import PDFPreviewer from "./PDFPreviewer"
+import axios from "axios";
 
 class Editor extends React.Component
 {
@@ -16,8 +17,8 @@ class Editor extends React.Component
         this.state = {
             xml : "",
             cursorPos : {
-                row : "",
-                column : ""
+                row : 0,
+                column : 0
             },
             files:[]
         }
@@ -51,11 +52,27 @@ class Editor extends React.Component
     {
         console.log(this.state.xml)
         console.log("The state is :", this.state.cursorPos);
-    }
+        axios.post("http://127.0.0.1:8080/api/send_xml",this.state.xml,{headers: {
+            'Content-Type': 'text/html;charset=UTF-8'
+        }}).then((res)=>{
+              console.log("Successfully Written File")
+          }).catch((err)=>{
+              console.log(err)
+          })
+        let file_array=[]
+        for(let i=0;i<this.state.files.length;i++){
+            file_array.push(this.state.files[i].name)
+        }
 
-    slideTag = () =>
-    {
-        
+        let file_json = {'file_array': file_array}
+        axios.post("http://127.0.0.1:8080/api/render",JSON.stringify(file_json),{headers: {
+            'Content-Type': 'application/json;charset=UTF-8'
+        }}).then((res)=>{
+              console.log("Successfully Called Render API")
+          }).catch((err)=>{
+              console.log(err)
+          })
+
     }
 
     addXML = (event) =>
@@ -63,7 +80,7 @@ class Editor extends React.Component
         let src = event.target.name;
         if(src == "slide")
         {
-            let textToInsert = "<slide deck = \"\" no = \"\" "       
+            let textToInsert = "<slide page = \"\"/>"       
             this.refs.mainEditor.editor.session.insert(this.state.cursorPos, textToInsert);
         }
         else if(src == "video")
@@ -78,7 +95,8 @@ class Editor extends React.Component
         }
         else if(src == "doc")
         {
-
+            let textToInsert = "<doc src = \"\"\>"
+            this.refs.mainEditor.editor.session.insert(this.state.cursorPos, textToInsert);
         }
         else if(src == "pause")
         {
@@ -87,6 +105,8 @@ class Editor extends React.Component
         }
         else if(src == "emphasis")
         {
+            let textToInsert = "<emphasis"
+            this.refs.mainEditor.editor.session.insert(this.state.cursorPos, textToInsert); 
 
         }
         else if(src == "say-as")
@@ -96,7 +116,7 @@ class Editor extends React.Component
         }
         else if(src == "highlight")
         {
-            let textToInsert = "<highlight box = \"\"/>"
+            let textToInsert = "<highlight points = \"\"/>"
             this.refs.mainEditor.editor.session.insert(this.state.cursorPos, textToInsert);
         }
     }
@@ -145,14 +165,14 @@ class Editor extends React.Component
                     tabSize: 2,
                 }}/>
                 </div>
-                <button onClick = {this.getAceValue} className = "btn btn-secondary btn-sm"> check log </button>
+                <button onClick = {this.getAceValue} className = "btn btn-secondary btn-sm"> Save File and Render </button>
                 </div>
                 </div>
                 <div className = "slideContainer">   
                 <h1>
                     Slide Images
                 </h1> 
-                <div className = "slideImages">
+                <div>
                     {/* <div> Slide 1</div>
                     <img src = {bits} className = "imgContainer"/>
                     <div>Slide 2</div>

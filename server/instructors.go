@@ -31,6 +31,10 @@ type LoginResult struct {
 
 type UploadConfig struct {
 	Files []string
+} 
+
+type LectureFiles struct {
+	LecFiles []string `json:"file_array,omitempty"`
 }
 
 func isFileUploaded(upFile string) bool {
@@ -203,4 +207,63 @@ func uploadFiles(w http.ResponseWriter, r *http.Request) {
 
 		}
 	}
+}
+
+func writeXML(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("content-type", "text/html")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+	if r.Method == "POST" {
+		body, err := ioutil.ReadAll(r.Body)
+		if err != nil {
+		   fmt.Println(err)
+		}
+	 //Convert the body to type string
+		sb := string(body)
+		fmt.Println(sb)
+		f, err := os.Create("xml_scripts/data.xml")
+
+		if err != nil {
+			fmt.Println(err)
+		}
+
+    	defer f.Close()
+
+    	_, err2 := f.WriteString(sb)
+
+		if err2 != nil {
+			fmt.Println(err2)
+		}
+
+    	fmt.Println("done")
+	}
+}
+
+func renderLecture(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("content-type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+	if r.Method == "POST" {
+		var lec_files LectureFiles
+		err := json.NewDecoder(r.Body).Decode(&lec_files)
+		if err != nil {
+			fmt.Println("hello")
+			fmt.Println(err)
+		}
+		fmt.Println(lec_files.LecFiles) //File names relevant to the current render, to be concatenated to "files/"
+	}
+	// absPath, err := os.Getwd()
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	
+	// inPath := filepath.Join(absPath, "input")
+	// outPath := filepath.Join(absPath, "output")
+	// xmlPath := filepath.Join(inPath, "example_lec.xml")
+
+	// lecture.Start(xmlPath, inPath, outPath)
+	// w.Header().Set("Content-Type", "text/html")
+	// fmt.Fprint(w, "It workr?")
 }

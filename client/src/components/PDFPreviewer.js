@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { Document, Page,pdfjs } from 'react-pdf';
-  
-  
-
-  
+import "../stylesheets/Editor.css"
 export default function Test(props) {
     const url = props.filePath
     // "https://cors-anywhere.herokuapp.com/http://www.pdf995.com/samples/pdf.pdf"
@@ -37,7 +34,7 @@ export default function Test(props) {
   
   return (
     <>
-    <div className="main">
+    <div className="pdfviewer">
       <Document
         file={url}
         onLoadSuccess={onDocumentLoadSuccess}
