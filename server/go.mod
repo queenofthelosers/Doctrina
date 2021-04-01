@@ -7,6 +7,6 @@ require (
 	github.com/gorilla/mux v1.8.0
 	github.com/gorilla/sessions v1.1.1
 	github.com/markbates/goth v1.66.1
-	github.com/nubular/lecture-parser v0.0.0-20210328075541-0e20695c4671
+	github.com/nubular/lecture-parser v0.0.0-20210331163128-e90dcccfa598
 	go.mongodb.org/mongo-driver v1.4.4
 )

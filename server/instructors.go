@@ -37,7 +37,6 @@ type UploadConfig struct {
 }
 
 func isFileUploaded(upFile string) bool {
-
 	config_file, _ := os.Open("uploadconfig.json")
 	defer config_file.Close()
 	decoder := json.NewDecoder(config_file)
@@ -133,7 +132,6 @@ func ValidateInstructor(w http.ResponseWriter, r *http.Request) {
 		var i Instructor
 		err := json.NewDecoder(r.Body).Decode(&i)
 		if err != nil {
-			fmt.Println("hello")
 			fmt.Println(err)
 		}
 		username := i.Username
@@ -156,21 +154,6 @@ func ValidateInstructor(w http.ResponseWriter, r *http.Request) {
 		}
 
 	}
-}
-
-func makeLecture(w http.ResponseWriter, r *http.Request) {
-	absPath, err := os.Getwd()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	inPath := filepath.Join(absPath, "input")
-	outPath := filepath.Join(absPath, "output")
-	xmlPath := filepath.Join(inPath, "example_lec.xml")
-
-	lecture.Start(xmlPath, inPath, outPath)
-	w.Header().Set("Content-Type", "text/html")
-	fmt.Fprint(w, "It workr?")
 }
 
 func uploadFiles(w http.ResponseWriter, r *http.Request) {
@@ -222,4 +205,26 @@ func uploadFiles(w http.ResponseWriter, r *http.Request) {
 
 		}
 	}
+}
+
+func makeLecture(w http.ResponseWriter, r *http.Request) {
+	conf := lecture.Config{
+		CacheFiles: true,
+		ScriptPath: "/run/media/nubular/Shared/repo/Doctrina/server/model/east.py",
+	}
+	lecture.SetConfig(conf)
+	absPath, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+	// absPath = filepath.Dir(absPath)
+
+	inPath := filepath.Join(absPath, "files")
+	outPath := filepath.Join(absPath, "output")
+	xmlPath := filepath.Join(inPath, "SampleLec.xml")
+	fmt.Println(inPath, outPath, xmlPath)
+	start := time.Now()
+	lecture.Start(xmlPath, inPath, outPath)
+	w.Header().Set("Content-Type", "text/html")
+	fmt.Fprint(w, "Lecture Rendered. Time taken:", time.Since(start))
 }
