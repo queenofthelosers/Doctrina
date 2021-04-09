@@ -89,7 +89,7 @@ func func1(w http.ResponseWriter, r *http.Request) {
 		result, _ := collection.InsertOne(ctx, current_user)
 		fmt.Println(result)
 	}
-	http.Redirect(w, r, "http://127.0.0.1:3000/student", http.StatusSeeOther)
+	http.Redirect(w, r, "http://localhost:3000/student", http.StatusSeeOther)
 }
 
 func func2(w http.ResponseWriter, r *http.Request) {
@@ -126,9 +126,8 @@ func main() {
 	goth.UseProviders(
 		google.New(config.ClientID, config.ClientSecret, "http://127.0.0.1:8080/auth/google/callback", "email", "profile"),
 	)
-
 	r := mux.NewRouter()
-	r.HandleFunc("/", handlerFunc)
+	 r.HandleFunc("/hello", handlerFunc)
 	r.HandleFunc("/auth/{provider}/callback", func1)
 	r.HandleFunc("/auth/{provider}", func2)
 	r.HandleFunc("/api/currentuser", getCurrUser)
@@ -141,7 +140,10 @@ func main() {
 	r.HandleFunc("/api/upload", uploadFiles)
 	r.HandleFunc("/api/send_xml",writeXML)
 	r.HandleFunc("/api/render",renderLecture)
-
+	r.HandleFunc("/demo",readme);
+	fs := http.FileServer(http.Dir("./videos/"))
+	r.PathPrefix("/videos/").Handler(http.StripPrefix("/videos/", addHeaders(fs)))
+	
 	//Mongo Connection Code
 	var err1 error
 	client, err1 = mongo.NewClient(options.Client().ApplyURI("mongodb+srv://admin:admin@cluster0.5ozca.mongodb.net/seproj?retryWrites=true&w=majority/"))

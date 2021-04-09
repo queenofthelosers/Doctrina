@@ -7,12 +7,14 @@ import InstructorDashboard from "./components/InstructorDashboard"
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 import InstructorRoute from './components/InstructorRoute';
 import Editor from "./components/Editor";
+import VideoPlayer from "./components/VideoPlayer"
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
     <Router>
         <Route exact path = "/" component={LoginPage}></Route>
+        <Route exact path = "/video" component= {VideoPlayer}></Route>
         <StudentRoute exact path = "/student" component={StudentDashboard}></StudentRoute>
         <Route exact path = "/instructorlogin" component={InstructorLogin}></Route>
         <InstructorRoute exact path = "/instructor_dashboard" component = {InstructorDashboard}></InstructorRoute>
