@@ -141,6 +141,7 @@ func main() {
 	r.HandleFunc("/api/send_xml",writeXML)
 	r.HandleFunc("/api/render",renderLecture)
 	r.HandleFunc("/demo",readme);
+	r.HandleFunc("/api/list_lectures", getLectureList)
 	fs := http.FileServer(http.Dir("./videos/"))
 	r.PathPrefix("/videos/").Handler(http.StripPrefix("/videos/", addHeaders(fs)))
 	

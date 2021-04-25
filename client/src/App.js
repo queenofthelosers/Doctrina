@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route} from 'react-router-dom';
 import InstructorRoute from './components/InstructorRoute';
 import Editor from "./components/Editor";
 import VideoPlayer from "./components/VideoPlayer"
+import Classroom from "./components/Classroom"
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route exact path = "/" component={LoginPage}></Route>
         <Route exact path = "/video" component= {VideoPlayer}></Route>
         <StudentRoute exact path = "/student" component={StudentDashboard}></StudentRoute>
+        <Route exact path = "/classroom" component ={Classroom}></Route>
         <Route exact path = "/instructorlogin" component={InstructorLogin}></Route>
         <InstructorRoute exact path = "/instructor_dashboard" component = {InstructorDashboard}></InstructorRoute>
         <InstructorRoute exact path = "/editor" component = {Editor}></InstructorRoute>

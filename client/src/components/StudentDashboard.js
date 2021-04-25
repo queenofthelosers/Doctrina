@@ -10,7 +10,8 @@ class StudentDashboard extends React.Component{
         super(props);
         this.state = {
             name : "",
-            emailID : ""
+            emailID : "",
+            lectureList:[]
         }
         
     }
@@ -21,18 +22,20 @@ class StudentDashboard extends React.Component{
             console.log(response.data);
             this.setState({name : response.data.name , emailID: response.data.email})
         })
+        
+        
     }
 
 
     render(){
         return(
             <div>
-            <StudentNavbar></StudentNavbar>
-            <h1><b>Welcome, {this.state.name}</b></h1>
+            <StudentNavbar signedInUser = {this.state.name}></StudentNavbar>
+            {/* <h1><b>Welcome, {this.state.name}</b></h1> */}
             <div className = "courseContainer">
                 <center><b>Your Courses</b></center>
                 <br/>
-                <CourseCard/>
+                <CourseCard user = "student"/>
             </div>
             </div>
         )
